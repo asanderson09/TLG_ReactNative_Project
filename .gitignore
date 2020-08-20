@@ -102,14 +102,17 @@ dist
 
 # TernJS port file
 .tern-port
+
+
+# expo
+.expo/
+
+# web-build
+.web-build/
+
 .expo/
 assets/.DS_Store
 .expo/settings.json
 *.json
 *.json
-.expo/settings.json
-.expo/packager-info.json
-*.json
-.expo/packager-info.json
-.expo/settings.json
-*.json
+
