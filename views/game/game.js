@@ -1,20 +1,20 @@
-import React, { PureComponent } from 'react';
-import { StatusBar, Dimensions, AppState } from 'react-native';
-import { GameEngine } from 'react-native-game-engine';
-import Matter from 'matter-js';
-import randomInt from 'random-int';
-import { Accelerometer } from 'expo-sensors';
-import { get } from 'lodash';
-import GameOver from './game-over';
+import { AppState, Dimensions, StatusBar } from "react-native";
+import { Computer, Duck, Email, Floor, Rocket, Star } from "./renderers";
+import { Physics, Tilt, Trajectory } from "./systems";
+import React, { PureComponent } from "react";
 
-import { Rocket, Floor, Star, Satellite, Planet, UFO } from './renderers';
-import { Tilt, Physics, Trajectory } from './systems';
-import Score from './score';
-import styles from './game-styles';
+import { Accelerometer } from "expo-sensors";
+import { GameEngine } from "react-native-game-engine";
+import GameOver from "./game-over";
+import Matter from "matter-js";
+import Score from "./score";
+import { get } from "lodash";
+import randomInt from "random-int";
+import styles from "./game-styles";
 
 const STAR_COUNT = 20;
 const INIT_COMPLEXITY = 3;
-const { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get("window");
 
 let COUNTER = 1;
 
@@ -37,7 +37,7 @@ class Game extends PureComponent {
     });
 
     this.incrementScore();
-    AppState.addEventListener('change', this.handleAppStateChange);
+    AppState.addEventListener("change", this.handleAppStateChange);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -54,17 +54,19 @@ class Game extends PureComponent {
 
       COUNTER += 1;
 
-      this.setState({ entities: updatedObstacles }, () => this.refs.engine.swap(updatedObstacles));
+      this.setState({ entities: updatedObstacles }, () =>
+        this.refs.engine.swap(updatedObstacles)
+      );
     }
   }
 
   componentWillUnmount() {
     this._subscription && this._subscription.remove();
     this._subscription = null;
-    AppState.removeEventListener('change', this.handleAppStateChange);
+    AppState.removeEventListener("change", this.handleAppStateChange);
   }
 
-  handleAppStateChange = nextAppState => {
+  handleAppStateChange = (nextAppState) => {
     this.setState({ appState: nextAppState }, this.incrementScore);
   };
 
@@ -72,7 +74,7 @@ class Game extends PureComponent {
     const { engine } = this.state.entities.physics;
     Matter.World.clear(engine.world);
     Matter.Engine.clear(engine);
-    Matter.Events.off(engine, 'collisionStart'); // clear all past events;
+    Matter.Events.off(engine, "collisionStart"); // clear all past events;
 
     const newState = {
       ...this.initState,
@@ -85,7 +87,7 @@ class Game extends PureComponent {
 
   incrementScore = () => {
     const { showOverlay, appState } = this.state;
-    if (!showOverlay && appState === 'active') {
+    if (!showOverlay && appState === "active") {
       this.setState(
         ({ score }) => {
           const increase = Math.floor(score / 50);
@@ -98,20 +100,23 @@ class Game extends PureComponent {
     }
   };
 
-  setupCollisionHandler = engine => {
-    Matter.Events.on(engine, 'collisionStart', event => {
+  setupCollisionHandler = (engine) => {
+    Matter.Events.on(engine, "collisionStart", (event) => {
       const { pairs } = event;
       const objA = pairs[0].bodyA.label;
       const objB = pairs[0].bodyB.label;
-
-      if (objA === 'floor' && objB === 'star') {
+      // if star reaches floor, reset position
+      if (objA === "floor" && objB === "star") {
         Matter.Body.setPosition(pairs[0].bodyB, {
           x: randomInt(1, width - 10),
           y: 0,
         });
       }
-
-      if (objA === 'floor' && objB === 'obstacle') {
+      // if obstacle collides another obstacle, bounce away
+      if (objA === "obstacle" && objB === "obstacle") {
+      }
+      // if obstacle reaches floor, reset position and trajectory
+      if (objA === "floor" && objB === "obstacle") {
         Matter.Body.set(pairs[0].bodyB, {
           trajectory: randomInt(-5, 5) / 10,
         });
@@ -120,8 +125,8 @@ class Game extends PureComponent {
           y: randomInt(0, -100),
         });
       }
-
-      if (objA === 'rocket' && objB === 'obstacle') {
+      // if obstacle hits nerd, show overlay, aka. set score and gameover
+      if (objA === "rocket" && objB === "obstacle") {
         this.setState({ showOverlay: true });
       }
     });
@@ -141,7 +146,7 @@ class Game extends PureComponent {
             {
               frictionAir: 0.1,
               isSensor: true,
-              label: 'star',
+              label: "star",
             }
           ),
           opacity: randomInt(1, 5) / 10,
@@ -151,55 +156,76 @@ class Game extends PureComponent {
       });
     }
 
-    const starsInWorld = Object.values(stars).map(star => star.body);
+    const starsInWorld = Object.values(stars).map((star) => star.body);
     return { stars, starsInWorld };
   }
-
+  //  pick a number between 0 and 2, and choose that element in the options array
   get obstacle() {
-    const options = [this.getSatellite, this.getPlanet, this.getUFO];
-    const ind = randomInt(0, options.length - 1);
-    const { obstacle, body } = options[ind]();
+    const options = [this.getComputer, this.getEmail, this.getDuck];
+    const element = randomInt(0, options.length - 1);
+    const { obstacle, body } = options[element]();
 
     return { obstacle, body };
   }
+  // create computer matter AND physics -> .rectangle( x, y, width, height, [options])
+  getComputer = () => {
+    const body = Matter.Bodies.rectangle(
+      randomInt(1, width - 50),
+      randomInt(0, -200),
+      60,
+      34,
+      {
+        isStatic: false,
+        frictionAir: 0.15,
+        label: "obstacle",
+        trajectory: randomInt(-5, 5) / 10,
+      }
+    );
+    const computer = { body, size: [75, 50], renderer: Computer };
 
-  getSatellite = () => {
-    const body = Matter.Bodies.rectangle(randomInt(1, width - 50), randomInt(0, -200), 75, 45, {
-      frictionAir: 0.05,
-      label: 'obstacle',
-      trajectory: randomInt(-5, 5) / 10,
-    });
-    const satellite = { body, size: [75, 50], renderer: Satellite };
-
-    return { obstacle: satellite, body };
+    return { obstacle: computer, body };
   };
+  // email
+  getEmail = () => {
+    const body = Matter.Bodies.rectangle(
+      randomInt(1, width - 50),
+      randomInt(0, -200),
+      70,
+      35,
+      {
+        isStatic: false,
+        frictionAir: 0.15,
+        label: "obstacle",
+        trajectory: randomInt(-5, 5) / 10,
+      }
+    );
+    const email = { body, size: [75, 50], renderer: Email };
 
-  getPlanet = () => {
-    const body = Matter.Bodies.rectangle(randomInt(1, width - 50), randomInt(0, -200), 60, 35, {
-      frictionAir: 0.05,
-      label: 'obstacle',
-      trajectory: randomInt(-5, 5) / 10,
-    });
-    const planet = { body, size: [75, 50], renderer: Planet };
-
-    return { obstacle: planet, body };
+    return { obstacle: email, body };
   };
+  // duck
+  getDuck = () => {
+    const body = Matter.Bodies.rectangle(
+      randomInt(1, width - 50),
+      randomInt(0, -200),
+      75,
+      20,
+      {
+        isStatic: false,
+        frictionAir: 0.15,
+        label: "obstacle",
+        trajectory: randomInt(-5, 5) / 10,
+      }
+    );
+    const duck = { body, size: [50, 20], renderer: Duck };
 
-  getUFO = () => {
-    const body = Matter.Bodies.rectangle(randomInt(1, width - 50), randomInt(0, -200), 50, 20, {
-      frictionAir: 0.05,
-      label: 'obstacle',
-      trajectory: randomInt(-5, 5) / 10,
-    });
-    const ufo = { body, size: [50, 20], renderer: UFO };
-
-    return { obstacle: ufo, body };
+    return { obstacle: duck, body };
   };
-
+  // create obstacles array
   get obstacles() {
     const obstacles = {};
     const bodies = [];
-
+    // start with 3 obstacles
     for (let i = 0; i < 3; i++) {
       const { obstacle, body } = this.obstacle;
       Object.assign(obstacles, { [`obstacle_${COUNTER}`]: obstacle });
@@ -217,28 +243,29 @@ class Game extends PureComponent {
       score: 0,
       entities: this.entities,
       showOverlay: false,
-      appState: 'active',
+      appState: "active",
       objectCounter: 1,
     };
   }
-
+  // entities are the pieces that interact and carry form
   get entities() {
     const engine =
-      get(this, 'state.entities.physics.engine') || Matter.Engine.create({ enableSleeping: false });
+      get(this, "state.entities.physics.engine") ||
+      Matter.Engine.create({ enableSleeping: false });
     const { world } = engine;
-    const rocket = Matter.Bodies.rectangle(width / 2, height - 200, 25, 50, {
+    const rocket = Matter.Bodies.rectangle(width / 2, height - 120, 25, 50, {
       isStatic: true,
       tilt: 0,
-      label: 'rocket',
+      label: "rocket",
     });
     const floor = Matter.Bodies.rectangle(width / 2, height, width + 100, 10, {
       isStatic: true,
       isSensor: true,
-      label: 'floor',
+      label: "floor",
     });
     const { obstacles, bodies } = this.obstacles;
     const { stars, starsInWorld } = this.stars;
-
+    //
     this.setupCollisionHandler(engine);
     Matter.World.add(world, [rocket, floor, ...bodies, ...starsInWorld]);
 
@@ -266,11 +293,15 @@ class Game extends PureComponent {
         ref="engine"
         systems={[Physics, Tilt, Trajectory]}
         entities={entities}
-        running={appState === 'active'}
+        running={appState === "active"}
       >
         <Score score={score} />
         <StatusBar hidden />
-        <GameOver showOverlay={showOverlay} score={score} reloadApp={this.reloadApp} />
+        <GameOver
+          showOverlay={showOverlay}
+          score={score}
+          reloadApp={this.reloadApp}
+        />
       </GameEngine>
     );
   }

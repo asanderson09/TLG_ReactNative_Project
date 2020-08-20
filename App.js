@@ -1,8 +1,10 @@
-import React, { PureComponent } from "react";
 import * as Font from "expo-font";
+
+import React, { PureComponent } from "react";
+
 import { AppLoading } from "expo";
-import { Asset } from "expo-asset";
 import AppNavigator from "./nav-stack";
+import { Asset } from "expo-asset";
 
 export default class App extends PureComponent {
   state = {
@@ -14,12 +16,18 @@ export default class App extends PureComponent {
       Asset.loadAsync([
         require("./assets/images/icon.png"),
         require("./assets/images/overlay-back.png"),
-        require("./assets/images/planet.png"),
+
+        // was old planet
+        require("./assets/images/email.png"),
+        // was old rocket
         require("./assets/images/nerd.png"),
-        require("./assets/images/satellite.png"),
+        // was old satellite
+        require("./assets/images/computer.png"),
         require("./assets/images/splash.png"),
         require("./assets/images/star.png"),
-        require("./assets/images/ufo.gif"),
+        // was old UFO
+        require("./assets/images/duck.gif"),
+
       ]),
       Font.loadAsync({
         orbitron: require("./assets/fonts/Orbitron-VariableFont-wght.ttf"),

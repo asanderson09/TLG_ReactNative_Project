@@ -1,13 +1,14 @@
+
+import { Image, View } from "react-native";
+
 import React from "react";
-import { View, Image } from "react-native";
-
+import computer from "../../assets/images/computer.png";
+import duck from "../../assets/images/duck.gif";
+import email from "../../assets/images/email.png";
 import rocket from "../../assets/images/nerd.png";
-import satellite from "../../assets/images/satellite.png";
-import planet from "../../assets/images/planet.png";
-import ufo from "../../assets/images/ufo.gif";
 import star from "../../assets/images/star.png";
-
 import styles from "./renderers-styles";
+
 
 const Rocket = ({ body, size }) => {
   const { position } = body;
@@ -32,7 +33,7 @@ const Rocket = ({ body, size }) => {
   );
 };
 
-const Satellite = ({ body, size }) => {
+const Computer = ({ body, size }) => {
   const { position } = body;
   const sizeWidth = size[0];
   const sizeHeight = size[1];
@@ -41,9 +42,9 @@ const Satellite = ({ body, size }) => {
 
   return (
     <Image
-      source={satellite}
+      source={computer}
       style={[
-        styles.satellite,
+        styles.computer,
         {
           left: x,
           top: y,
@@ -55,7 +56,7 @@ const Satellite = ({ body, size }) => {
   );
 };
 
-const Planet = ({ body, size }) => {
+const Email = ({ body, size }) => {
   const sizeWidth = size[0];
   const sizeHeight = size[1];
   const { position } = body;
@@ -64,9 +65,9 @@ const Planet = ({ body, size }) => {
 
   return (
     <Image
-      source={planet}
+      source={email}
       style={[
-        styles.satellite,
+        styles.computer,
         {
           left: x,
           top: y,
@@ -101,7 +102,7 @@ const Star = ({ body, size, opacity }) => {
   );
 };
 
-const UFO = ({ body, size }) => {
+const Duck = ({ body, size }) => {
   const sizeWidth = size[0];
   const sizeHeight = size[1];
   const x = body.position.x - sizeWidth / 2;
@@ -109,9 +110,9 @@ const UFO = ({ body, size }) => {
 
   return (
     <Image
-      source={ufo}
+      source={duck}
       style={[
-        styles.ufo,
+        styles.duck,
         {
           left: x,
           top: y,
@@ -142,4 +143,4 @@ const Floor = ({ body, size }) => {
   );
 };
 
-export { Rocket, Floor, Star, Satellite, Planet, UFO };
+export { Rocket, Floor, Star, Computer, Email, Duck };
