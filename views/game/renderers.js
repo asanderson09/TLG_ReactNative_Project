@@ -1,13 +1,12 @@
-import React from 'react';
-import { View, Image } from 'react-native';
+import { Image, View } from "react-native";
 
-import rocket from '../../assets/images/rocketwithflames.gif';
-import satellite from '../../assets/images/satellite.png';
-import planet from '../../assets/images/planet.png';
-import ufo from '../../assets/images/ufo.gif';
-import star from '../../assets/images/star.png';
-
-import styles from './renderers-styles';
+import React from "react";
+import planet from "../../assets/images/email.png";
+import rocket from "../../assets/images/nerd.png";
+import satellite from "../../assets/images/computer.png";
+import star from "../../assets/images/star.png";
+import styles from "./renderers-styles";
+import ufo from "../../assets/images/duck.gif";
 
 const Rocket = ({ body, size }) => {
   const { position } = body;
@@ -131,12 +130,12 @@ const Floor = ({ body, size }) => {
   return (
     <View
       style={{
-        position: 'absolute',
+        position: "absolute",
         left: x,
         top: y,
         width,
         height,
-        backgroundColor: 'transparent',
+        backgroundColor: "transparent",
       }}
     />
   );
