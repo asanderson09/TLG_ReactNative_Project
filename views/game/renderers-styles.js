@@ -7,18 +7,18 @@ const styles = StyleSheet.create({
     height: 100,
     position: "absolute",
   },
-  // new computer
-  satellite: {
+
+  computer: {
     position: "absolute",
   },
-  // new email
-  planet: {
+
+  email: {
     width: 50,
     height: 90,
     position: "absolute",
   },
-  // new duck
-  ufo: {
+
+  duck: {
     width: 75,
     height: 75,
     position: "absolute",
