@@ -24,14 +24,20 @@ const GameOver = ({ showOverlay, score, reloadApp }) => {
         if (score > parseInt(Score1, 10)) {
           setScore1(score);
           setScore2(Score1);
+          setScore3(Score2);
+          setScore4(Score3);
+          setScore5(Score4);
           await AsyncStorage.setItem(KEY, String(score));
         } else if (score > parseInt(Score2)) {
           setScore2(score);
           setScore3(Score2);
+          setScore4(Score3);
+          setScore5(Score4);
           await AsyncStorage.setItem(KEY, String(score));
         } else if (score > parseInt(Score3)) {
           setScore3(score);
           setScore4(Score3);
+          setScore5(Score4);
           await AsyncStorage.setItem(KEY, String(score));
         } else if (score > parseInt(Score4)) {
           setScore4(score);
