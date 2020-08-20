@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { View, AsyncStorage } from 'react-native';
-import { Button } from 'react-native-elements';
-import { Video } from 'expo-av';
-import { Text } from '../../components/text/text';
-import Constants from 'expo-constants';
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import { View, AsyncStorage } from "react-native";
+import { Button } from "react-native-elements";
+import { Video } from "expo-av";
+import { Text } from "../../components/text/text";
+import Constants from "expo-constants";
 
+import backgroundVid from "../../assets/video/planet-cartoon-space-animation.mp4";
+import styles from "./landing-styles";
 
-import backgroundVid from '../../assets/video/planet-cartoon-space-animation.mp4';
-import styles from './landing-styles';
-
-const KEY = '@shaky-shuttle:high-score';
+const KEY = "@shaky-shuttle:high-score";
 
 const Landing = ({ navigation }) => {
   const [highScore, setHighScore] = useState(0);
@@ -21,7 +20,7 @@ const Landing = ({ navigation }) => {
         setHighScore(value);
       }
     } catch (error) {
-      console.error('error fetching high score');
+      console.error("error fetching high score");
     }
   };
 
@@ -45,13 +44,13 @@ const Landing = ({ navigation }) => {
         <Text h2 h2Style={styles.title}>
           Shaky Shuttle
         </Text>
-        <Text style={styles.highScore}>High score - {highScore}</Text>
+        <Text style={styles.highScore}>High scores - {highScore}</Text>
       </View>
       <Button
         title="Start"
         buttonStyle={styles.button}
         titleStyle={styles.buttonTitle}
-        onPress={() => navigation.navigate('Game')}
+        onPress={() => navigation.navigate("Game")}
       />
       <Text style={styles.version}>{Constants.manifest.version}</Text>
     </View>
