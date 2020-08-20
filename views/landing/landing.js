@@ -44,7 +44,7 @@ const Landing = ({ navigation }) => {
         <Text h2 h2Style={styles.title}>
           Shaky Shuttle
         </Text>
-        <Text style={styles.highScore}>High scores - {highScore}</Text>
+        <Text style={styles.highScore}>High score - {highScore}</Text>
       </View>
       <Button
         title="Start"
