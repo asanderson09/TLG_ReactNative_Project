@@ -1,13 +1,14 @@
+
+import { Image, View } from "react-native";
+
 import React from "react";
-import { View, Image } from "react-native";
-
+import planet from "../../assets/images/email.png";
 import rocket from "../../assets/images/nerd.png";
-import satellite from "../../assets/images/satellite.png";
-import planet from "../../assets/images/planet.png";
-import ufo from "../../assets/images/ufo.gif";
+import satellite from "../../assets/images/computer.png";
 import star from "../../assets/images/star.png";
-
 import styles from "./renderers-styles";
+import ufo from "../../assets/images/duck.gif";
+
 
 const Rocket = ({ body, size }) => {
   const { position } = body;
