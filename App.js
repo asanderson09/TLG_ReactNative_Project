@@ -16,6 +16,7 @@ export default class App extends PureComponent {
       Asset.loadAsync([
         require("./assets/images/icon.png"),
         require("./assets/images/overlay-back.png"),
+
         // was old planet
         require("./assets/images/email.png"),
         // was old rocket
@@ -26,6 +27,7 @@ export default class App extends PureComponent {
         require("./assets/images/star.png"),
         // was old UFO
         require("./assets/images/duck.gif"),
+
       ]),
       Font.loadAsync({
         orbitron: require("./assets/fonts/Orbitron-VariableFont-wght.ttf"),

@@ -1,3 +1,4 @@
+
 import { Image, View } from "react-native";
 
 import React from "react";
@@ -7,6 +8,7 @@ import satellite from "../../assets/images/computer.png";
 import star from "../../assets/images/star.png";
 import styles from "./renderers-styles";
 import ufo from "../../assets/images/duck.gif";
+
 
 const Rocket = ({ body, size }) => {
   const { position } = body;
