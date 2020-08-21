@@ -14,7 +14,7 @@ export default class App extends PureComponent {
   loadResourcesAsync = async () =>
     Promise.all([
       Asset.loadAsync([
-        //require("./assets/images/icon.png"),
+        require("./assets/images/icon.png"),
         require("./assets/images/overlay-back.png"),
 
         // was old planet
