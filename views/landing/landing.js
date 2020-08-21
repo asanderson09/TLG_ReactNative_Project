@@ -6,7 +6,7 @@ import { Video } from "expo-av";
 import { Text } from "../../components/text/text";
 import Constants from "expo-constants";
 
-import backgroundVid from "../../assets/video/planet-cartoon-space-animation.mp4";
+import backgroundVid from "../../assets/video/backgroundVid.mp4";
 import styles from "./landing-styles";
 
 const KEY = "@shaky-shuttle:high-score";
@@ -41,18 +41,22 @@ const Landing = ({ navigation }) => {
         style={styles.video}
       />
       <View style={styles.titleContainer}>
-        <Text h2 h2Style={styles.title}>
-          Shaky Shuttle
-        </Text>
+        <Text h2 h2Style={styles.title}></Text>
         <Text style={styles.highScore}>High score - {highScore}</Text>
+
+        <Button
+          title="Start"
+          buttonStyle={styles.button}
+          titleStyle={styles.buttonTitle}
+          onPress={() => navigation.navigate("Game")}
+        />
+        <Button
+          title="Instructions"
+          buttonStyle={styles.button}
+          titleStyle={styles.buttonTitle}
+          onPress={() => navigation.navigate("Instructions")}
+        />
       </View>
-      <Button
-        title="Start"
-        buttonStyle={styles.button}
-        titleStyle={styles.buttonTitle}
-        onPress={() => navigation.navigate("Game")}
-      />
-      <Text style={styles.version}>{Constants.manifest.version}</Text>
     </View>
   );
 };
