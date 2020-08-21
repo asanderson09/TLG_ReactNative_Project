@@ -32,9 +32,10 @@ class Game extends PureComponent {
   }
 
   componentDidMount() {
-    this._subscription = Accelerometer.addListener(({ x }) => {
+    this._subscription = Accelerometer.addListener(({ x, y }) => {
       Matter.Body.set(this.refs.engine.state.entities.rocket.body, {
-        tilt: x,
+        xtilt: x,
+        ytilt: y,
       });
     });
 
@@ -259,7 +260,8 @@ class Game extends PureComponent {
     const { world } = engine;
     const rocket = Matter.Bodies.rectangle(width / 2, height - 120, 25, 50, {
       isStatic: true,
-      tilt: 0,
+      xtilt: 0,
+      ytilt: 0,
       label: "rocket",
     });
     const floor = Matter.Bodies.rectangle(width / 2, height, width + 100, 10, {
