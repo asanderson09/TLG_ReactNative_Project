@@ -1,4 +1,3 @@
-
 import { Image, View } from "react-native";
 
 import React from "react";
@@ -9,13 +8,13 @@ import rocket from "../../assets/images/nerd.png";
 import star from "../../assets/images/star.png";
 import styles from "./renderers-styles";
 
-
 const Rocket = ({ body, size }) => {
   const { position } = body;
   const sizeWidth = size[0];
   const sizeHeight = size[1];
   const x = position.x - sizeWidth / 2;
-  const { y } = position;
+  // const { y } = position;
+  const y = position.y + sizeHeight - 120;
 
   return (
     <Image
