@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { View } from 'react-native';
-import { Text } from '../../components/text/text';
+import React from "react";
+import PropTypes from "prop-types";
+import { View } from "react-native";
+import { Text } from "../../components/text/text";
 
-import styles from './score-styles';
+import styles from "./score-styles";
 
 const Score = ({ score }) => {
   return (

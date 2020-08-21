@@ -1,4 +1,3 @@
-
 import { Image, View } from "react-native";
 
 import React from "react";
@@ -7,8 +6,8 @@ import duck from "../../assets/images/duck.gif";
 import email from "../../assets/images/email.png";
 import rocket from "../../assets/images/nerd.png";
 import star from "../../assets/images/star.png";
+import logo from "../../assets/images/logo.png";
 import styles from "./renderers-styles";
-
 
 const Rocket = ({ body, size }) => {
   const { position } = body;
@@ -122,6 +121,26 @@ const Duck = ({ body, size }) => {
   );
 };
 
+const Logo = ({ body, size }) => {
+  const sizeWidth = size[0];
+  const sizeHeight = size[0];
+  const x = body.position.x - sizeWidth / 2;
+  const y = body.position.y - sizeHeight / 2;
+
+  return (
+    <Image
+      source={logo}
+      style={[
+        styles.logo,
+        {
+          left: x,
+          top: y,
+        },
+      ]}
+    />
+  );
+};
+
 const Floor = ({ body, size }) => {
   const width = size[0];
   const height = size[1];
@@ -143,4 +162,4 @@ const Floor = ({ body, size }) => {
   );
 };
 
-export { Rocket, Floor, Star, Computer, Email, Duck };
+export { Rocket, Floor, Star, Computer, Email, Duck, Logo };

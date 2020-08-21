@@ -1,5 +1,5 @@
 import { AppState, Dimensions, StatusBar, Vibration, View } from "react-native";
-import { Computer, Duck, Email, Floor, Rocket, Star } from "./renderers";
+import { Computer, Duck, Email, Floor, Rocket, Star, Logo } from "./renderers";
 import { Physics, Tilt, Trajectory } from "./systems";
 import React, { PureComponent } from "react";
 
@@ -127,6 +127,7 @@ class Game extends PureComponent {
           y: randomInt(0, -100),
         });
       }
+
       // if obstacle hits nerd, show overlay, aka. set score and gameover
       if (objA === "rocket" && objB === "obstacle") {
         this.setState({ showOverlay: true });
@@ -163,9 +164,14 @@ class Game extends PureComponent {
     const starsInWorld = Object.values(stars).map((star) => star.body);
     return { stars, starsInWorld };
   }
-  //  pick a number between 0 and 2, and choose that element in the options array
+  //  pick a number between 0 and 3, and choose that element in the options array
   get obstacle() {
-    const options = [this.getComputer, this.getEmail, this.getDuck];
+    const options = [
+      this.getComputer,
+      this.getEmail,
+      this.getDuck,
+      this.getLogo,
+    ];
     const element = randomInt(0, options.length - 1);
     const { obstacle, body } = options[element]();
 
@@ -225,12 +231,30 @@ class Game extends PureComponent {
 
     return { obstacle: duck, body };
   };
+  //logo
+  getLogo = () => {
+    const body = Matter.Bodies.rectangle(
+      randomInt(1, width - 50),
+      randomInt(0, -200),
+      70,
+      35,
+      {
+        isStatic: false,
+        frictionAir: 0.15,
+        label: "obstacle",
+        trajectory: randomInt(-5, 5) / 10,
+      }
+    );
+    const logo = { body, size: [75, 50], renderer: Logo };
+
+    return { obstacle: logo, body };
+  };
   // create obstacles array
   get obstacles() {
     const obstacles = {};
     const bodies = [];
     // start with 3 obstacles
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 4; i++) {
       const { obstacle, body } = this.obstacle;
       Object.assign(obstacles, { [`obstacle_${COUNTER}`]: obstacle });
       bodies.push(body);
@@ -269,7 +293,7 @@ class Game extends PureComponent {
     });
     const { obstacles, bodies } = this.obstacles;
     const { stars, starsInWorld } = this.stars;
-    //
+
     this.setupCollisionHandler(engine);
     Matter.World.add(world, [rocket, floor, ...bodies, ...starsInWorld]);
 

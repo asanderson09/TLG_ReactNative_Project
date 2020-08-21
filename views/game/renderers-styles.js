@@ -23,6 +23,13 @@ const styles = StyleSheet.create({
     height: 75,
     position: "absolute",
   },
+
+  logo: {
+    width: 65,
+    height: 65,
+    position: "absolute",
+  },
+
   star: {
     position: "absolute",
   },

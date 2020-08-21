@@ -16,6 +16,8 @@ const GameOver = ({ showOverlay, score, reloadApp, navigation }) => {
   const [Score4, setScore4] = useState("0");
   const [Score5, setScore5] = useState("0");
 
+  const [bonus, setBonus] = useState("0");
+
   const storeData = async () => {
     if (showOverlay) {
       try {
