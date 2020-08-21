@@ -1,10 +1,4 @@
-import {
-  AppState,
-  Dimensions,
-  StatusBar,
-  View,
-  ImageBackground,
-} from "react-native";
+import { AppState, Dimensions, StatusBar, Vibration, View } from "react-native";
 import { Computer, Duck, Email, Floor, Rocket, Star } from "./renderers";
 import { Physics, Tilt, Trajectory } from "./systems";
 import React, { PureComponent } from "react";
@@ -136,6 +130,8 @@ class Game extends PureComponent {
       // if obstacle hits nerd, show overlay, aka. set score and gameover
       if (objA === "rocket" && objB === "obstacle") {
         this.setState({ showOverlay: true });
+        //vibration when nerd hits obstacle
+        Vibration.vibrate(1000);
       }
     });
   };
