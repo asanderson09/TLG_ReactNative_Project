@@ -20,13 +20,12 @@ const Tilt = (state) => {
     xPos += xTilt * 20;
   }
   // give rocket a small range of freedom in the y direction
-  if (yPos >= height - 200 && yTilt > 0) {
+  if (yPos <= height - 200 && yTilt > 0) {
     yPos = height - 200;
-  } else if (yPos <= height - 120 && yTilt < 0) {
-    yPos = height - 120;
+  } else if (yPos >= height - 75 && yTilt < 0) {
+    yPos = height - 75;
   } else {
-    // turn on a dime or like a semi-truck
-    yPos += yTilt * 2;
+    yPos += -yTilt * 20;
   }
 
   // set nerd's y-position to a fixed amount, set x-position to changing xPos

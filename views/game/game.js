@@ -8,10 +8,10 @@ import { GameEngine } from "react-native-game-engine";
 import GameOver from "./game-over";
 import Matter from "matter-js";
 import Score from "./score";
+import backgroundImage from "../../assets/images/overlay-back.png";
 import { get } from "lodash";
 import randomInt from "random-int";
 import styles from "./game-styles";
-import backgroundImage from "../../assets/images/overlay-back.png";
 
 const image = { backgroundImage };
 const STAR_COUNT = 20;
@@ -30,7 +30,8 @@ class Game extends PureComponent {
 
     this.state = this.initState;
   }
-
+  // Accelerometer finds phone's (x, y) tilt orientation
+  // and we set { xtilt, ytilt} to rocket's entity physics
   componentDidMount() {
     this._subscription = Accelerometer.addListener(({ x, y }) => {
       Matter.Body.set(this.refs.engine.state.entities.rocket.body, {
@@ -93,7 +94,7 @@ class Game extends PureComponent {
     if (!showOverlay && appState === "active") {
       this.setState(
         ({ score }) => {
-          const increase = Math.floor(score / 50);
+          const increase = Math.floor(score / 30);
           const complexity = increase < 3 ? 3 : increase;
 
           return { score: score + 1, complexity };
@@ -115,9 +116,6 @@ class Game extends PureComponent {
           y: 0,
         });
       }
-      // if obstacle collides another obstacle, bounce away
-      if (objA === "obstacle" && objB === "obstacle") {
-      }
       // if obstacle reaches floor, reset position and trajectory
       if (objA === "floor" && objB === "obstacle") {
         Matter.Body.set(pairs[0].bodyB, {
@@ -128,7 +126,7 @@ class Game extends PureComponent {
           y: randomInt(0, -100),
         });
       }
-      // if obstacle hits nerd, show overlay, aka. set score and gameover
+      // if obstacle hits rocket, show overlay, aka. set score and gameover
       if (objA === "rocket" && objB === "obstacle") {
         this.setState({ showOverlay: true });
         //vibration when nerd hits obstacle
