@@ -5,9 +5,10 @@ import { Button } from "react-native-elements";
 import { Video } from "expo-av";
 import { Text } from "../../components/text/text";
 import Constants from "expo-constants";
-
+import Instructions from "./instructions";
 import backgroundVid from "../../assets/video/backgroundVid.mp4";
 import styles from "./landing-styles";
+import instructionStyles from "./instructions-styles";
 
 const KEY = "@shaky-shuttle:high-score";
 
@@ -52,8 +53,8 @@ const Landing = ({ navigation }) => {
         />
         <Button
           title="Instructions"
-          buttonStyle={styles.button}
-          titleStyle={styles.buttonTitle}
+          buttonStyle={instructionStyles.button}
+          titleStyle={instructionStyles.buttonTitle}
           onPress={() => navigation.navigate("Instructions")}
         />
       </View>

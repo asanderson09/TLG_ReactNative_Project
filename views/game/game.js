@@ -1,4 +1,10 @@
-import { AppState, Dimensions, StatusBar } from "react-native";
+import {
+  AppState,
+  Dimensions,
+  StatusBar,
+  View,
+  ImageBackground,
+} from "react-native";
 import { Computer, Duck, Email, Floor, Rocket, Star } from "./renderers";
 import { Physics, Tilt, Trajectory } from "./systems";
 import React, { PureComponent } from "react";
@@ -11,7 +17,9 @@ import Score from "./score";
 import { get } from "lodash";
 import randomInt from "random-int";
 import styles from "./game-styles";
+import backgroundImage from "../../assets/images/overlay-back.png";
 
+const image = { backgroundImage };
 const STAR_COUNT = 20;
 const INIT_COMPLEXITY = 3;
 const { width, height } = Dimensions.get("window");
@@ -287,6 +295,7 @@ class Game extends PureComponent {
 
   render() {
     const { showOverlay, entities, score, appState } = this.state;
+
     return (
       <GameEngine
         style={styles.container}

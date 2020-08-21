@@ -8,7 +8,7 @@ import { Text } from "../../components/text/text";
 
 const KEY = "@shaky-shuttle:high-score";
 
-const GameOver = ({ showOverlay, score, reloadApp }) => {
+const GameOver = ({ showOverlay, score, reloadApp, navigation }) => {
   const [highScore, setHighScore] = useState("0");
   const [Score1, setScore1] = useState("0");
   const [Score2, setScore2] = useState("0");
@@ -81,6 +81,14 @@ const GameOver = ({ showOverlay, score, reloadApp }) => {
           buttonStyle={styles.button}
           titleStyle={styles.buttonTitle}
           onPress={reloadApp}
+          icon={<Icon size={25} type="font-awesome" color="#BB1F13" />}
+          iconRight
+        />
+        <Button
+          title="Home"
+          buttonStyle={styles.button}
+          titleStyle={styles.buttonTitle}
+          onPress={() => navigation.navigate("Landing")}
           icon={<Icon size={25} type="font-awesome" color="#BB1F13" />}
           iconRight
         />
