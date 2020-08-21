@@ -5,6 +5,7 @@ import { Button, Icon, Overlay } from "react-native-elements";
 import overlayBack from "../../assets/images/overlay-back.png";
 import styles from "./game-styles";
 import { Text } from "../../components/text/text";
+import { Landing } from "../landing/landing";
 
 const KEY = "@shaky-shuttle:high-score";
 
@@ -88,7 +89,7 @@ const GameOver = ({ showOverlay, score, reloadApp, navigation }) => {
           title="Home"
           buttonStyle={styles.button}
           titleStyle={styles.buttonTitle}
-          onPress={() => navigation.navigate("Landing")}
+          onPress={() => navigation.navigate({ Landing })}
           icon={<Icon size={25} type="font-awesome" color="#BB1F13" />}
           iconRight
         />
@@ -101,6 +102,9 @@ GameOver.propTypes = {
   showOverlay: PropTypes.bool.isRequired,
   score: PropTypes.number.isRequired,
   reloadApp: PropTypes.func.isRequired,
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default GameOver;

@@ -1,14 +1,11 @@
 {
   "expo": {
-    "name": "Shaky Shuttle",
-    "slug": "shaky-shuttle",
+    "name": "Dodgy Dev",
+    "slug": "dodgy-dev",
     "privacy": "public",
     "sdkVersion": "36.0.0",
-    "scheme": "shakyshuttle",
-    "platforms": [
-      "ios",
-      "android"
-    ],
+    "scheme": "dodgyDev",
+    "platforms": ["ios", "android"],
     "version": "0.0.5",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -20,16 +17,14 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "bundleIdentifier": "com.midcoast.shakyshuttle",
+      "bundleIdentifier": "com.midcoast.dodgyDev",
       "supportsTablet": false,
       "buildNumber": "1"
     },
     "android": {
-      "package": "com.midcoast.shakyshuttle",
+      "package": "com.midcoast.dodgyDev",
       "versionCode": 1,
       "permissions": []
     },
