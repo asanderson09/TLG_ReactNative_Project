@@ -7,7 +7,9 @@ const { width, height } = Dimensions.get("window");
 const Tilt = (state) => {
   const { rocket } = state;
   const xTilt = rocket.body.tilt;
+  const yTilt = rocket.body.tilt;
   let xPos = rocket.body.position.x;
+  let yPos = rocket.body.position.y;
 
   // if nerd attempts to go out of bounds, keep in
   if (xPos >= width - 25 && xTilt > 0) {
@@ -18,10 +20,19 @@ const Tilt = (state) => {
     // turn on a dime or like a semi-truck
     xPos += xTilt * 20;
   }
+  // if rocket tilts forward, only allow up to a limit
+  // TODO: Figure out the boundaries
+  if (yPos >= height - 25 && yTilt > 0) {
+    yPos = height - 200;
+  } else if (yPos <= 5 && yTilt < 0) {
+    yPos = height;
+  } else {
+    yPos += yTilt * 20;
+  }
   // set nerd's y-position to a fixed amount, set x-position to changing xPos
   Matter.Body.setPosition(rocket.body, {
     x: xPos,
-    y: height - 120,
+    y: yPos,
   });
 
   return state;

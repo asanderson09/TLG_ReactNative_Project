@@ -175,7 +175,7 @@ class Game extends PureComponent {
   getComputer = () => {
     const body = Matter.Bodies.rectangle(
       randomInt(1, width - 50),
-      randomInt(0, -200),
+      randomInt(0, -100),
       60,
       34,
       {
@@ -193,9 +193,9 @@ class Game extends PureComponent {
   getEmail = () => {
     const body = Matter.Bodies.rectangle(
       randomInt(1, width - 50),
-      randomInt(0, -200),
-      70,
-      35,
+      randomInt(0, -50),
+      50,
+      90,
       {
         isStatic: false,
         frictionAir: 0.15,
@@ -207,13 +207,13 @@ class Game extends PureComponent {
 
     return { obstacle: email, body };
   };
-  // duck
+
   getDuck = () => {
     const body = Matter.Bodies.rectangle(
       randomInt(1, width - 50),
-      randomInt(0, -200),
+      randomInt(0, -120),
       75,
-      20,
+      75,
       {
         isStatic: false,
         frictionAir: 0.15,
