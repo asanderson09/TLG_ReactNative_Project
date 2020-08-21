@@ -46,7 +46,7 @@ const Landing = ({ navigation }) => {
         <Text style={styles.highScore}>High score - {highScore}</Text>
 
         <Button
-          title="Start"
+          title="Play"
           buttonStyle={styles.button}
           titleStyle={styles.buttonTitle}
           onPress={() => navigation.navigate("Game")}
