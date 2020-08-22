@@ -25,6 +25,8 @@ export default class App extends PureComponent {
         require("./assets/images/computer.png"),
         require("./assets/images/splash.png"),
         require("./assets/images/star.png"),
+        // new star
+        require("./assets/images/code.png"),
         // was old UFO
         require("./assets/images/duck.gif"),
       ]),

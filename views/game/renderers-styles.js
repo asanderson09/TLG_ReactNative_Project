@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     height: 75,
     position: "absolute",
   },
-  star: {
+  codeSym: {
     position: "absolute",
   },
 });

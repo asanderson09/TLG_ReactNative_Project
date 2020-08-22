@@ -1,6 +1,7 @@
 import { Image, View } from "react-native";
 
 import React from "react";
+import codeSym from "../../assets/images/code.png";
 import computer from "../../assets/images/computer.png";
 import duck from "../../assets/images/duck.gif";
 import email from "../../assets/images/email.png";
@@ -78,7 +79,7 @@ const Email = ({ body, size }) => {
   );
 };
 
-const Star = ({ body, size, opacity }) => {
+const CodeSym = ({ body, size, opacity }) => {
   const sizeWidth = size[0];
   const sizeHeight = size[1];
   const x = body.position.x - sizeWidth / 2;
@@ -86,9 +87,9 @@ const Star = ({ body, size, opacity }) => {
 
   return (
     <Image
-      source={star}
+      source={codeSym}
       style={[
-        styles.star,
+        styles.codeSym,
         {
           left: x,
           top: y,
@@ -142,4 +143,4 @@ const Floor = ({ body, size }) => {
   );
 };
 
-export { Rocket, Floor, Star, Computer, Email, Duck };
+export { Rocket, Floor, CodeSym, Computer, Email, Duck };

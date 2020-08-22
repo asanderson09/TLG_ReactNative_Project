@@ -1,5 +1,5 @@
 import { AppState, Dimensions, StatusBar, Vibration, View } from "react-native";
-import { Computer, Duck, Email, Floor, Rocket, Star } from "./renderers";
+import { CodeSym, Computer, Duck, Email, Floor, Rocket } from "./renderers";
 import { Physics, Tilt, Trajectory } from "./systems";
 import React, { PureComponent } from "react";
 
@@ -109,8 +109,8 @@ class Game extends PureComponent {
       const { pairs } = event;
       const objA = pairs[0].bodyA.label;
       const objB = pairs[0].bodyB.label;
-      // if star reaches floor, reset position
-      if (objA === "floor" && objB === "star") {
+      // if codeSym reaches floor, reset position
+      if (objA === "floor" && objB === "codeSym") {
         Matter.Body.setPosition(pairs[0].bodyB, {
           x: randomInt(1, width - 10),
           y: 0,
@@ -134,12 +134,12 @@ class Game extends PureComponent {
       }
     });
   };
-
-  get stars() {
-    const stars = {};
+  // old stars
+  get codeSyms() {
+    const codeSyms = {};
     for (let x = 1; x <= STAR_COUNT; x++) {
       const size = randomInt(10, 20);
-      Object.assign(stars, {
+      Object.assign(codeSyms, {
         [`star_${x}`]: {
           body: Matter.Bodies.rectangle(
             randomInt(1, width - 10),
@@ -149,18 +149,18 @@ class Game extends PureComponent {
             {
               frictionAir: 0.1,
               isSensor: true,
-              label: "star",
+              label: "codeSym",
             }
           ),
           opacity: randomInt(1, 5) / 10,
           size: [size, size],
-          renderer: Star,
+          renderer: CodeSym,
         },
       });
     }
 
-    const starsInWorld = Object.values(stars).map((star) => star.body);
-    return { stars, starsInWorld };
+    const starsInWorld = Object.values(codeSyms).map((codeSym) => codeSym.body);
+    return { codeSyms, starsInWorld };
   }
   //  pick a number between 0 and 2, and choose that element in the options array
   get obstacle() {
@@ -268,7 +268,7 @@ class Game extends PureComponent {
       label: "floor",
     });
     const { obstacles, bodies } = this.obstacles;
-    const { stars, starsInWorld } = this.stars;
+    const { codeSyms, starsInWorld } = this.codeSyms;
     //
     this.setupCollisionHandler(engine);
     Matter.World.add(world, [rocket, floor, ...bodies, ...starsInWorld]);
@@ -278,7 +278,7 @@ class Game extends PureComponent {
         engine,
         world,
       },
-      ...stars,
+      ...codeSyms,
       ...obstacles,
       rocket: { body: rocket, size: [50, 100], renderer: Rocket },
       floor: {
