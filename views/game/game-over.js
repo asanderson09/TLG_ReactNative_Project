@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { ImageBackground, AsyncStorage, View } from "react-native";
+import { AsyncStorage, ImageBackground, View } from "react-native";
 import { Button, Icon, Overlay } from "react-native-elements";
+import React, { useEffect, useState } from "react";
+
+import { Landing } from "../landing/landing";
+import PropTypes from "prop-types";
+import { Text } from "../../components/text/text";
 import overlayBack from "../../assets/images/overlay-back.png";
 import styles from "./game-styles";
-import { Text } from "../../components/text/text";
-import { Landing } from "../landing/landing";
 
 const KEY = "@shaky-shuttle:high-score";
 
@@ -89,7 +90,7 @@ const GameOver = ({ showOverlay, score, reloadApp, navigation }) => {
           title="Home"
           buttonStyle={styles.button}
           titleStyle={styles.buttonTitle}
-          onPress={() => navigation.navigate({ Landing })}
+          onPress={() => navigation.navigate("Landing")}
           icon={<Icon size={25} type="font-awesome" color="#BB1F13" />}
           iconRight
         />
