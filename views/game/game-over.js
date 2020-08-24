@@ -86,14 +86,14 @@ const GameOver = ({ showOverlay, score, reloadApp, navigation }) => {
           icon={<Icon size={25} type="font-awesome" color="#BB1F13" />}
           iconRight
         />
-        <Button
+        {/* <Button
           title="Home"
           buttonStyle={styles.button}
           titleStyle={styles.buttonTitle}
           onPress={() => navigation.navigate("Landing")}
           icon={<Icon size={25} type="font-awesome" color="#BB1F13" />}
           iconRight
-        />
+        /> */}
       </ImageBackground>
     </Overlay>
   );
@@ -103,9 +103,9 @@ GameOver.propTypes = {
   showOverlay: PropTypes.bool.isRequired,
   score: PropTypes.number.isRequired,
   reloadApp: PropTypes.func.isRequired,
-  navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-  }).isRequired,
+  // navigation: PropTypes.shape({
+  //   navigate: PropTypes.func.isRequired,
+  // }).isRequired,
 };
 
 export default GameOver;
